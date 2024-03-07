@@ -1,23 +1,37 @@
 const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
+const connectDB = require('./db');
 
+// Connect to MongoDB
+connectDB();
+
+// Initialize the app
 const app = express();
 
-// Enable CORS for all origins (for development purposes only)
+// Init Middleware
+app.use(express.json({ extended: false}));
+
+// Enable CORS for all origins
 app.use(cors());
 
-// Example data for GET request
-const data = {
-  message: "Hello from the server!",
-  data: [1, 2, 3, 4, 5],
-};
-
 // GET route to retrieve data
-app.get('/data', (req, res) => {
-  res.json(data);
+app.get('/', (req, res) => {
+  res.json({
+    statusCode: 200,
+    message: 'Welcome to the BPSS Backend.'
+  });
 });
 
-const port = process.env.PORT || 8080; // Use environment variable for port or default to 3000
+// Define Routes here
+app.use('/admin', require('./routes/admin'));
+app.use('/attendance', require('./routes/attendance'));
+app.use('/guard', require('./routes/guard'));
+app.use('/location', require('./routes/location'));
+app.use('/organization', require('./routes/organization'));
+app.use('/supervisor', require('./routes/supervisor'));
+
+const port = process.env.PORT || 5000; // Use environment variable for port or default to 5000
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);
