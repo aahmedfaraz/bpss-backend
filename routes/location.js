@@ -5,8 +5,8 @@ const { check, validationResult } = require('express-validator');
 const Location = require('../models/Location');
 
 const isUniqueAddress = async (value, { req }) => {
-  const existingGuard = await Guard.findOne({ address: value });
-  if (existingGuard) {
+  const existingLocation = await Location.findOne({ address: value });
+  if (existingLocation) {
     throw new Error('Location already exists for this address');
   }
   return true;
