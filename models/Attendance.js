@@ -31,4 +31,4 @@ const AttendanceSchema = mongoose.Schema({
 // Define compound index for date, month, and year
 AttendanceSchema.index({ date: 1, month: 1, year: 1 }, { unique: true });
 
-module.exports = mongoose.model("guard", AttendanceSchema);
+module.exports = mongoose.model("attendance", AttendanceSchema);

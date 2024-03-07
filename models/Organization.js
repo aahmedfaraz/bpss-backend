@@ -6,7 +6,7 @@ const OrganizationSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  date: {
+  date: { 
     type: Date,
     default: Date.now,
   },
