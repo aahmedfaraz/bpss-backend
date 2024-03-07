@@ -4,8 +4,8 @@ const { check, validationResult } = require('express-validator');
 const Organization = require('../models/Organization');
 
 const isUniqueName = async (value, { req }) => {
-  const existingGuard = await Guard.findOne({ name: value });
-  if (existingGuard) {
+  const existingOrganization = await Organization.findOne({ name: value }); 
+  if (existingOrganization) {
     throw new Error('Organization name already exists');
   }
   return true;
