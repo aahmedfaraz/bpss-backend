@@ -18,15 +18,18 @@ router.post('/', [
   check('cnic', 'CNIC is required').not().isEmpty().isLength({ min: 13, max: 13 }), // Assuming Pakistani CNIC format
   check('cnic', 'CNIC must be unique').custom(isUniqueCNIC),
   check('age', 'Age is required').isNumeric().isInt({ min: 18 }), // Assuming minimum guard age is 18
-  check('supervisorID', 'Supervisor ID is required').custom(mongoose.Types.ObjectId.isValid()),
-  check('locationID', 'Location ID is required').custom(mongoose.Types.ObjectId.isValid()),
+  check('supervisorID', 'Supervisor ID is required').isMongoId(),
+  check('locationID', 'Location ID is required').isMongoId(),
 ], async (req, res) => {
+  console.log(1)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
+  console.log(2)
 
   const { name, cnic, age, supervisorID, locationID, organizationID, ...otherData } = req.body;
+  console.log(3)
 
   try {
     const guard = new Guard({ name, cnic, age, supervisorID, locationID, organizationID, ...otherData });
