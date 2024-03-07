@@ -25,6 +25,11 @@ app.get('/', (req, res) => {
 
 // Define Routes here
 app.use('/admin', require('./routes/admin'));
+app.use('/attendance', require('./routes/attendance'));
+app.use('/guard', require('./routes/guard'));
+app.use('/location', require('./routes/location'));
+app.use('/organization', require('./routes/organization'));
+app.use('/supervisor', require('./routes/supervisor'));
 
 const port = process.env.PORT || 5000; // Use environment variable for port or default to 5000
 
